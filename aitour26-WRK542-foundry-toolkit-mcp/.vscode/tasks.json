@@ -1,0 +1,119 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "MCP: Sales Analysis (8004)",
+			"type": "shell",
+			"command": "${workspaceFolder}/.venv/bin/python",
+			"windows": {
+				"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+			},
+			"args": ["-m", "mcp_servers.sales_analysis"],
+			"isBackground": true,
+			"problemMatcher": [
+				{
+					"pattern": {
+						"regexp": "^never_match$"
+					},
+					"background": {
+						"activeOnStart": true,
+						"beginsPattern": "Starting Sales Analysis|Starting MCP server",
+						"endsPattern": "Application startup complete"
+					}
+				}
+			],
+			"options": {
+				"cwd": "${workspaceFolder}",
+				"env": {
+					"PYTHONPATH": "${workspaceFolder}/src",
+					"PORT": "8004"
+				}
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"showReuseMessage": false
+			}
+		},
+		{
+			"label": "MCP: Inventory (8005)",
+			"type": "shell",
+			"command": "${workspaceFolder}/.venv/bin/python",
+			"windows": {
+				"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+			},
+			"args": ["-m", "mcp_servers.inventory_server"],
+			"isBackground": true,
+			"problemMatcher": [
+				{
+					"pattern": {
+						"regexp": "^never_match$"
+					},
+					"background": {
+						"activeOnStart": true,
+						"beginsPattern": "Starting Inventory|Starting MCP server",
+						"endsPattern": "Application startup complete"
+					}
+				}
+			],
+			"options": {
+				"cwd": "${workspaceFolder}",
+				"env": {
+					"PYTHONPATH": "${workspaceFolder}/src",
+					"PORT": "8005"
+				}
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"showReuseMessage": false
+			}
+		},
+		{
+			"label": "Start MCP Servers",
+			"dependsOn": [
+				"MCP: Sales Analysis (8004)",
+				"MCP: Inventory (8005)"
+			],
+			"dependsOrder": "sequence",
+			"problemMatcher": []
+		},
+		{
+			"label": "Docs: Install Python Dependencies",
+			"type": "shell",
+			"command": "${workspaceFolder}/.venv/bin/python",
+			"windows": {
+				"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+			},
+			"args": [
+				"-m",
+				"pip",
+				"install",
+				"-r",
+				"requirements.txt"
+			],
+			"problemMatcher": [],
+			"options": {
+				"cwd": "${workspaceFolder}/docs"
+			}
+		},
+		{
+			"label": "Docs: Run Server",
+			"type": "shell",
+			"command": "${workspaceFolder}/.venv/bin/python",
+			"windows": {
+				"command": "${workspaceFolder}\\.venv\\Scripts\\python.exe"
+			},
+			"args": [
+				"-m",
+				"mkdocs",
+				"serve"
+			],
+			"problemMatcher": [],
+			"options": {
+				"cwd": "${workspaceFolder}/docs"
+			},
+			"dependsOn": "Docs: Install Python Dependencies"
+		}
+	]
+}

@@ -30,7 +30,7 @@
 - [ ] **microsoft/ai-agents-for-beginners** — 11 lessons, maps directly to "single-agent solution" exam objective — <https://github.com/microsoft/ai-agents-for-beginners>
 - [ ] **Azure-Samples/azureai-samples** — Foundry SDK Python samples (agents, evaluation, content safety, Content Understanding) — <https://github.com/Azure-Samples/azureai-samples>
 - [ ] **Azure-Samples/azure-search-openai-demo** — canonical RAG reference architecture — <https://github.com/Azure-Samples/azure-search-openai-demo>
-- [ ] **microsoft/aitour-build-intelligent-apps-foundry** — Foundry-specific build patterns — search GitHub for current AI Tour repo
+- [ ] **microsoft/aitour26-WRK542-prototype-agents-with-Foundry-toolkit-and-model-context-protocol** — Agent and MCP Prototying in Foundry (Python) - <https://github.com/microsoft/aitour26-WRK542-prototype-agents-with-Foundry-toolkit-and-model-context-protocol>
 
 ## 📚 Official deep documentation (read, don't skim)
 

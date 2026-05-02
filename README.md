@@ -1,107 +1,55 @@
-# AI-901 — Azure AI Fundamentals Deep Prep Plan
+# Applied AI Engineering on Azure — Self-Paced Skills Library
 
-> **Exam status:** Beta April 2026 • Live June 2026 • AI-900 retires **June 30, 2026**
-> **Passing score:** 700
-> **Skills weighting:** 40–45% AI concepts & responsibilities · 55–60% Implement AI solutions in Microsoft Foundry
-> **Official study guide:** <https://aka.ms/AI901-StudyGuide>
-> **Exam page:** <https://learn.microsoft.com/en-us/credentials/certifications/exams/ai-901>
-> **Exam sandbox (UI demo):** <https://aka.ms/examdemo>
+## Library description
 
----
+A self-paced curriculum for engineers and aspiring developers who want to build production-quality AI applications on Microsoft Foundry. The library covers the conceptual foundations of modern AI systems — how generative models work, when to choose which model, and how to ship them responsibly — alongside hands-on practice building chat clients, single-agent solutions, multimodal apps, and information-extraction pipelines in Python. The emphasis is on transferable skills (prompting, agent design, RAG, evaluation, content safety, multimodal I/O) rather than memorizing service names, with public GitHub repositories used as the primary lab environment.
 
-## Skills measured (current as of 15 April 2026)
-
-### 1. Identify AI concepts and capabilities (40–45%)
-- **Responsible AI principles** — fairness, reliability & safety, privacy & security, inclusiveness, transparency, accountability
-- **AI model components & configurations** — how generative AI models work, model selection, deployment options & parameters
-- **AI workloads** — generative & agentic AI, text analysis, speech, computer vision, information extraction
-
-### 2. Implement AI solutions using Microsoft Foundry (55–60%)
-- **Generative AI apps & agents in Foundry** — system/user prompts, model deployment, Foundry SDK chat client, **single-agent solutions**
-- **Text & speech in Foundry** — text analysis app, multimodal speech, Azure Speech in Foundry Tools
-- **Computer vision & image generation in Foundry** — multimodal vision prompts, image generation, vision app
-- **Information extraction with Azure Content Understanding** — documents, images, audio, video; lightweight extraction app
+**Skill domains covered**
+- Responsible AI principles and operational practices
+- How generative AI models work, and how to choose and configure them
+- Recognizing AI workload patterns (generative, agentic, text, speech, vision, extraction)
+- Building chat clients and single-agent solutions with the Foundry SDK
+- Adding text and speech capabilities to applications
+- Adding computer vision and image generation capabilities
+- Extracting structured information from documents, images, audio, and video
 
 ---
 
-## 🏗️ Build-it-yourself core (highest signal)
+## Repository catalog (each repo listed once)
 
-- [ ] **microsoft/generative-ai-for-beginners** — 21 lessons, Python notebooks against Azure OpenAI / Foundry — <https://github.com/microsoft/generative-ai-for-beginners>
-- [ ] **microsoft/ai-agents-for-beginners** — 11 lessons, maps directly to "single-agent solution" exam objective — <https://github.com/microsoft/ai-agents-for-beginners>
-- [ ] **Azure-Samples/azureai-samples** — Foundry SDK Python samples (agents, evaluation, content safety, Content Understanding) — <https://github.com/Azure-Samples/azureai-samples>
-- [ ] **Azure-Samples/azure-search-openai-demo** — canonical RAG reference architecture — <https://github.com/Azure-Samples/azure-search-openai-demo>
-- [ ] **microsoft/aitour26-WRK542-prototype-agents-with-Foundry-toolkit-and-model-context-protocol** — Agent and MCP Prototying in Foundry (Python) - <https://github.com/microsoft/aitour26-WRK542-prototype-agents-with-Foundry-toolkit-and-model-context-protocol>
+The repositories below are the hands-on backbone of the library. Later sections map skill domains to specific lessons inside these repos rather than re-listing the URLs.
 
-## 📚 Official deep documentation (read, don't skim)
+### Foundational courses
+- **microsoft/generative-ai-for-beginners** — 21 lessons covering prompt engineering, RAG, AI agents, and related topics[[1]](https://github.com/dair-ai/Prompt-Engineering-Guide) in Python and TypeScript notebooks against Azure OpenAI / Foundry. https://github.com/microsoft/generative-ai-for-beginners
+- **microsoft/ai-agents-for-beginners** — 12 lessons built on Microsoft Agent Framework with Azure AI Foundry Agent Service V2[[10]](https://microsoft.github.io/ai-agents-for-beginners/02-explore-agentic-frameworks/code_samples/02-dotnet-agent-framework.html), the exact stack the curriculum assesses. https://github.com/microsoft/ai-agents-for-beginners
+- **dair-ai/Prompt-Engineering-Guide** — vendor-neutral guides, papers, lessons, notebooks and resources for prompt engineering, context engineering, RAG, and AI Agents[[1]](https://github.com/dair-ai/Prompt-Engineering-Guide). https://github.com/dair-ai/Prompt-Engineering-Guide
 
-- [ ] **Microsoft Foundry — Concepts + How-to** (not just quickstarts): model catalog, deployments, **Foundry Agent Service**, **prompt flow**, **evaluation**, **content safety**, **observability** — <https://learn.microsoft.com/en-us/azure/ai-foundry/>
-- [ ] **Azure AI Foundry SDK (Python) reference** — `azure-ai-projects`, `azure-ai-agents`, `azure-ai-inference` — <https://learn.microsoft.com/en-us/python/api/overview/azure/ai/>
-- [ ] **Azure Content Understanding** — analyzers for documents, images, audio, video (new exam content, thin third-party coverage) — <https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/>
-- [ ] **Azure AI Speech in Foundry Tools** — real-time + batch, multimodal with GPT-4o-realtime — <https://learn.microsoft.com/en-us/azure/ai-services/speech-service/>
-- [ ] **Microsoft Responsible AI Standard v2** (PDF) — <https://aka.ms/RAIStandardPDF>
-- [ ] **Responsible AI dashboard** docs — <https://learn.microsoft.com/en-us/azure/machine-learning/concept-responsible-ai-dashboard>
-- [ ] **Transparency Notes** for each AI service — <https://learn.microsoft.com/en-us/legal/cognitive-services/>
-- [ ] **OpenAI Cookbook** — model-agnostic patterns — <https://github.com/openai/openai-cookbook>
+### Foundry SDK and Agent Service
+- **Azure-Samples/azureai-samples** — official community-driven Azure AI examples, including Foundry SDK Python samples for agents, evaluation, and content safety. https://github.com/Azure-Samples/azureai-samples
+- **Azure/ai-foundry-workshop** — 4–5 hour hands-on workshop that walks through setting up authentication and project configuration, deploying and testing AI models, building AI agents, evaluating agent performance, and deploying an end-to-end AI native sample app[[9]](https://github.com/Azure/ai-foundry-workshop). https://github.com/Azure/ai-foundry-workshop
+- **microsoft/agent-framework** — the Microsoft Agent Framework SDK itself; a comprehensive multi-language framework for building, orchestrating, and deploying AI agents with support for both .NET and Python implementations, providing everything from simple chat agents to complex multi-agent workflows with graph-based orchestration[[1]](https://github.com/microsoft/agent-framework). https://github.com/microsoft/agent-framework
+- **microsoft/Agent-Framework-Samples** — a comprehensive hands-on guide to building intelligent agents using the Microsoft Agent Framework, with practical examples, tutorials, and code samples in both Python and .NET[[2]](https://github.com/microsoft/Agent-Framework-Samples). Modules cover agent foundations, your first agent, tool use, providers (MCP/A2A), RAG, workflows, and evaluation/tracing. https://github.com/microsoft/Agent-Framework-Samples
+- **microsoft/aitour26-WRK542-prototype-agents-with-Foundry-toolkit-and-model-context-protocol** — VS Code lab for prototyping a conversational agent in the Foundry Toolkit with MCP-backed tools. https://github.com/microsoft/aitour26-WRK542-prototype-agents-with-Foundry-toolkit-and-model-context-protocol
+- **Azure-Samples/foundry-agent-service-remote-mcp-python** — a quickstart template to easily run an Azure AI Foundry Agent Service client and add a custom remote MCP server to the cloud using Azure Functions Remote MCP, deployable in a couple of minutes via azd up[[4]](https://github.com/Azure-Samples/foundry-agent-service-remote-mcp-python). https://github.com/Azure-Samples/foundry-agent-service-remote-mcp-python
+- **Azure-Samples/azure-ai-projects-file-search** — minimal Python Quart app that streams responses from Azure AI Agents to an HTML/JS frontend via Server-Sent Events; ideal template for the "lightweight client application for an agent" objective. https://github.com/Azure-Samples/azure-ai-projects-file-search
 
-## 🎓 Structured courses (deeper than MS Learn)
+### RAG and search
+- **Azure-Samples/azure-search-openai-demo** — canonical RAG reference architecture; supports many document formats, cloud data ingestion, optional multimodal models for image-heavy documents, optional speech input/output, and Application Insights tracing[[3]](https://github.com/Azure-Samples/azure-search-openai-demo). https://github.com/Azure-Samples/azure-search-openai-demo
+- **microsoft/rag-time** — a 5-week learning journey covering retrieval systems with Azure AI Search, vector index optimization, multimodal RAG, hero use-cases, and agentic RAG[[10]](https://github.com/microsoft/rag-time). https://github.com/microsoft/rag-time
+- **microsoft/rag-experiment-accelerator** — config-driven tool to run experiments and evaluations across search hyperparameters; useful for the "evaluate RAG" parts of the capstone. https://github.com/microsoft/rag-experiment-accelerator
 
-DeepLearning.AI short courses (free, ~1 hr each) — <https://www.deeplearning.ai/short-courses/>:
-- [ ] Building Systems with the ChatGPT API
-- [ ] Functions, Tools and Agents with LangChain
-- [ ] AI Agents in LangGraph
-- [ ] Multi AI Agent Systems with crewAI
-- [ ] Building and Evaluating Advanced RAG
-- [ ] Red Teaming LLM Applications
+### Information extraction (Azure Content Understanding)
+- **Azure-Samples/azure-ai-content-understanding-python** — primary public sample set; demonstrates how to use the GA Azure AI Content Understanding service to analyze documents, images, audio, and video and transform them into structured, organized, and searchable data[[1]](https://github.com/Azure-Samples/azure-ai-content-understanding-python). Includes notebooks for content extraction, field extraction, classification, and face enrollment. https://github.com/Azure-Samples/azure-ai-content-understanding-python
+- **Azure-Samples/azure-ai-search-with-content-understanding-python** — builds a RAG solution by leveraging Content Understanding to extract unstructured data from diverse modalities, index it in Azure Search, and use Azure OpenAI for context-aware responses[[2]](https://github.com/Azure-Samples/azure-ai-search-with-content-understanding-python). https://github.com/Azure-Samples/azure-ai-search-with-content-understanding-python
+- **Azure-Samples/azure-ai-content-understanding-with-azure-openai-python** — generates video highlights from a video file using Azure AI services and OpenAI, including schema auto-generation, content analysis, segment filtering, highlight planning, and video stitching[[4]](https://github.com/Azure-Samples/azure-ai-content-understanding-with-azure-openai-python). https://github.com/Azure-Samples/azure-ai-content-understanding-with-azure-openai-python
 
-Other:
-- [ ] **Coursera — Microsoft Azure AI Engineer Associate (AI-102) Specialization** — still relevant for vision/speech/NLP depth
-- [ ] **Pluralsight — Azure AI path** (Tim Warner)
-- [ ] **John Savill's YouTube — Azure AI Foundry Deep Dive** — <https://www.youtube.com/@NTFAQGuy>
-  - [ ] Watch the AI-901 Study Cram when he publishes it (typically 2–4 weeks before GA)
+### Speech and multimodal
+- **Azure-Samples/cognitive-services-speech-sdk** — official Speech SDK sample code covering recognition, synthesis, translation, and conversation transcription in Python and other languages. https://github.com/Azure-Samples/cognitive-services-speech-sdk
 
-## 🧠 Conceptual depth (so questions feel obvious)
+### Responsible AI and red teaming
+- **microsoft/responsible-ai-toolbox** — a suite of tools providing model and data exploration and assessment user interfaces and libraries that enable a better understanding of AI systems, empowering developers and stakeholders to develop and monitor AI more responsibly[[1]](https://github.com/microsoft/responsible-ai-toolbox). https://github.com/microsoft/responsible-ai-toolbox
+- **microsoft/PyRIT** — the Python Risk Identification Tool for generative AI, an open source framework that empowers security professionals and engineers to proactively identify risks in generative AI systems[[1]](https://github.com/Azure/PyRIT); also the engine behind the Foundry AI Red Teaming Agent. https://github.com/microsoft/PyRIT
+- **microsoft/AI-Red-Teaming-Playground-Labs** — challenges designed to teach security professionals to systematically red team AI systems, going beyond traditional security failures by incorporating novel adversarial machine learning and Responsible AI failures[[3]](https://github.com/microsoft/AI-Red-Teaming-Playground-Labs). https://github.com/microsoft/AI-Red-Teaming-Playground-Labs
 
-- [ ] **Andrej Karpathy — Intro to Large Language Models** (1 hr) — <https://www.youtube.com/watch?v=zjkBMFhNj_g>
-- [ ] **Andrej Karpathy — Let's build the GPT Tokenizer** — YouTube
-- [ ] **Hugging Face NLP & LLM courses** (free) — <https://huggingface.co/learn>
-- [ ] **Microsoft Research — AutoGen paper** for agent orchestration mental model
-
-## 🏢 Microsoft-internal resources (CSA access)
-
-- [ ] **Microsoft Learn employee plans** — request the AI-901 plan via L&D BP / manager
-- [ ] **AI Tour FY26 recorded sessions** — <https://aka.ms/aitour> (Foundry, agents, Content Understanding deep dives)
-- [ ] **Ready / Global Skilling SharePoint** — internal AI-901 enablement decks
-- [ ] **Field communities (Teams/Discord)** — "Azure AI Foundry — Field Community" for beta/exam tips
-- [ ] **Cloud Skills Challenge / AI Skills Fest** — free exam vouchers + curated labs
-- [ ] **MCT/SME beta program** — register for **AI-901 beta exam** (free) and SME content review
-
-## 🧪 Practice & question banks
-
-No AI-901-specific bank exists yet (~Jul–Aug 2026 ETA). Until then:
-- [ ] Generate practice questions with GPT-4 / Claude using the study guide objectives as system prompt
-- [ ] Take **MS Learn AI-102 practice assessment** (free) — ~40% conceptual overlap
-- [ ] Walk through the **exam sandbox** to learn question formats — <https://aka.ms/examdemo>
-- [ ] When released: **MS Learn official practice assessment for AI-901** (~8 weeks after GA)
-- [ ] When released: **Tutorials Dojo / MeasureUp AI-901**
-
----
-
-## ✅ Recommended sequencing
-
-1. [ ] Read **Foundry Concepts** docs end-to-end (1–2 evenings)
-2. [ ] Work through **generative-ai-for-beginners** lessons 1–13 (prompts → RAG → safety)
-3. [ ] Work through **ai-agents-for-beginners** end-to-end
-4. [ ] **Personal capstone project** — build a multi-modal Foundry agent that calls Content Understanding + Azure Speech, deployed via the Foundry SDK. Covers ~70% of hands-on objectives.
-5. [ ] Watch DeepLearning.AI agent + RAG short courses to fill gaps
-6. [ ] Read Responsible AI Standard v2 + Transparency Notes
-7. [ ] Watch John Savill AI-901 cram when published
-8. [ ] **Take the AI-901 beta exam** in April–May for free reps + early cert
-
----
-
-## Notes
-
-- AI-900 retires **30 June 2026**. AI-901 explicitly requires **Python** familiarity (AI-900 didn't).
-- Foundry-centric: the old Cognitive Services / Azure ML Studio framing is gone.
-- **Content Understanding** and **Foundry Agent Service** are the two newest services on the exam — they have the thinnest third-party coverage and the highest "differentiation" value to study deeply.
-- Re-check the study guide monthly until the exam date — Microsoft updates skills measured periodically.
+### Vendor-neutral patterns
+- **openai/openai-cookbook** — model-agnostic patterns and parameter-tuning recipes useful when picking model capabilities. https://github.com/openai/openai-cookbook

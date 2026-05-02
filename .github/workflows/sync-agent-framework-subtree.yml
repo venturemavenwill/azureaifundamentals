@@ -1,0 +1,61 @@
+# .github/workflows/sync-agent-framework-subtree.yml
+
+name: Sync agent-framework subtree
+
+on:
+  schedule:
+    - cron: '0 6 * * 0'        # runs every Sunday at 6 AM UTC
+  workflow_dispatch:             # lets you trigger it manually anytime
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add or pull subtree
+        run: |
+          REMOTE_NAME="upstream-agent-framework"
+          REMOTE_URL="https://github.com/microsoft/agent-framework.git"
+          FOLDER="agent-framework"
+          BRANCH="main"
+
+          # Add the upstream remote (ignore error if it already exists)
+          git remote add "$REMOTE_NAME" "$REMOTE_URL" 2>/dev/null || true
+          git fetch "$REMOTE_NAME" "$BRANCH"
+
+          if [ -d "$FOLDER" ]; then
+            echo "::notice::Subtree folder exists — pulling upstream changes…"
+            git subtree pull \
+              --prefix="$FOLDER" \
+              "$REMOTE_NAME" "$BRANCH" \
+              --squash \
+              -m "chore: sync agent-framework @ $(date -u +%Y-%m-%d)"
+          else
+            echo "::notice::Subtree folder not found — performing initial add…"
+            git subtree add \
+              --prefix="$FOLDER" \
+              "$REMOTE_NAME" "$BRANCH" \
+              --squash
+          fi
+
+      - name: Push changes
+        run: |
+          if git diff --quiet origin/main..HEAD; then
+            echo "::notice::No new upstream changes — nothing to push."
+          else
+            git push origin main
+          fi

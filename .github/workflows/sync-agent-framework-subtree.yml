@@ -90,7 +90,6 @@ jobs:
             sed -i '/filter=lfs/d' "$ga"
             sed -i '/diff=lfs/d' "$ga"
             sed -i '/merge=lfs/d' "$ga"
-            # Remove empty .gitattributes
             if [ ! -s "$ga" ]; then
               git rm --cached --quiet "$ga" 2>/dev/null || true
               rm -f "$ga"
@@ -110,10 +109,10 @@ jobs:
           # Recommit everything as a single clean commit
           git commit -m "chore: sync agent-framework @ $(date -u +%Y-%m-%d) (LFS stripped)"
 
-      - name: Push changes
+      - name: Push changes (force to overwrite rewritten history)
         run: |
           if git diff --quiet origin/main..HEAD 2>/dev/null; then
             echo "::notice::No changes to push."
           else
-            git push origin main
+            git push --force-with-lease origin main
           fi

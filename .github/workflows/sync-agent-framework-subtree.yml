@@ -26,6 +26,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Install Git LFS
+        run: |
+          git lfs install
+
       - name: Add or pull subtree
         run: |
           REMOTE_NAME="upstream-agent-framework"
@@ -51,6 +55,10 @@ jobs:
               "$REMOTE_NAME" "$BRANCH" \
               --squash
           fi
+
+      - name: Pull LFS objects
+        run: |
+          git lfs pull --all
 
       - name: Push changes
         run: |

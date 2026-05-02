@@ -23,19 +23,20 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
+          lfs: false
 
       - name: Configure Git identity
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Disable LFS entirely
+      - name: Completely disable LFS
         run: |
-          git lfs install --skip-smudge
-          git config --global filter.lfs.smudge "git-lfs smudge --skip -- %f"
-          git config --global filter.lfs.process "git-lfs filter-process --skip"
           git lfs uninstall
-          git config --global lfs.allowincompletepush true
+          git config --global filter.lfs.smudge "cat"
+          git config --global filter.lfs.clean "cat"
+          git config --global filter.lfs.process ""
+          git config --global filter.lfs.required false
 
       - name: Add or pull subtree
         run: |
@@ -44,7 +45,6 @@ jobs:
           FOLDER="agent-framework"
           BRANCH="main"
 
-          # Add the upstream remote (ignore error if it already exists)
           git remote add "$REMOTE_NAME" "$REMOTE_URL" 2>/dev/null || true
           git fetch "$REMOTE_NAME" "$BRANCH"
 
@@ -63,47 +63,57 @@ jobs:
               --squash
           fi
 
-      - name: Remove LFS tracking from subtree
+      - name: Collapse into a single clean commit without LFS pointers
         run: |
           FOLDER="agent-framework"
 
-          # Remove filter=lfs lines from any .gitattributes in the subtree
-          find "$FOLDER" -name ".gitattributes" -exec sed -i '/filter=lfs/d' {} \;
-
-          # Also handle the root .gitattributes if it exists
-          if [ -f .gitattributes ]; then
-            sed -i '/filter=lfs/d' .gitattributes
+          # If there are no new commits beyond origin/main, skip
+          if git diff --quiet origin/main..HEAD 2>/dev/null; then
+            echo "::notice::No new upstream changes — nothing to clean."
+            exit 0
           fi
 
-          # Untrack all LFS patterns globally in this repo
-          git lfs untrack "*.png" 2>/dev/null || true
-          git lfs untrack "*.jpg" 2>/dev/null || true
-          git lfs untrack "*.jpeg" 2>/dev/null || true
-          git lfs untrack "*.gif" 2>/dev/null || true
-          git lfs untrack "*.pdf" 2>/dev/null || true
+          # Soft reset to origin/main — all subtree changes become staged
+          git reset --soft origin/main
 
-          # Find all LFS pointer files in the subtree and re-add them as regular files
-          # LFS pointers are small text files starting with "version https://git-lfs"
-          find "$FOLDER" -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.gif" -o -name "*.pdf" \) | while read -r file; do
-            if head -1 "$file" 2>/dev/null | grep -q "^version https://git-lfs"; then
-              echo "Removing LFS pointer file: $file"
-              git rm --cached "$file" 2>/dev/null || true
+          # Remove LFS pointer files from index and working tree
+          find "$FOLDER" -type f | while read -r file; do
+            if head -c 50 "$file" 2>/dev/null | grep -q "^version https://git-lfs"; then
+              echo "Removing LFS pointer: $file"
+              git rm --cached --quiet "$file" 2>/dev/null || true
               rm -f "$file"
             fi
           done
 
-          # Stage all changes
-          git add -A
+          # Strip filter=lfs lines from all .gitattributes in the subtree
+          find "$FOLDER" -name ".gitattributes" | while read -r ga; do
+            sed -i '/filter=lfs/d' "$ga"
+            sed -i '/diff=lfs/d' "$ga"
+            sed -i '/merge=lfs/d' "$ga"
+            # Remove empty .gitattributes
+            if [ ! -s "$ga" ]; then
+              git rm --cached --quiet "$ga" 2>/dev/null || true
+              rm -f "$ga"
+            else
+              git add "$ga"
+            fi
+          done
 
-          # Commit if there are changes
-          if ! git diff --cached --quiet; then
-            git commit -m "chore: remove LFS tracking from agent-framework subtree"
+          # Also clean root .gitattributes if affected
+          if [ -f .gitattributes ]; then
+            sed -i '/filter=lfs/d' .gitattributes
+            sed -i '/diff=lfs/d' .gitattributes
+            sed -i '/merge=lfs/d' .gitattributes
+            git add .gitattributes
           fi
+
+          # Recommit everything as a single clean commit
+          git commit -m "chore: sync agent-framework @ $(date -u +%Y-%m-%d) (LFS stripped)"
 
       - name: Push changes
         run: |
-          if git diff --quiet origin/main..HEAD; then
-            echo "::notice::No new upstream changes — nothing to push."
+          if git diff --quiet origin/main..HEAD 2>/dev/null; then
+            echo "::notice::No changes to push."
           else
             git push origin main
           fi
